@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhotoHub - Partagez vos moments</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="auth.css">
+
+
+
+</head>
+<body>
+    <!-- Redirection vers la page de connexion -->
+    <div class="redirect-container">
+        <div class="redirect-content">
+            <div class="logo">
+                <h1>PhotoHub</h1>
+                <p>Partagez vos plus beaux moments</p>
+            </div>
+            <div class="redirect-animation">
+                <i class="fas fa-camera fa-3x"></i>
+            </div>
+            <p>Redirection vers la page de connexion...</p>
+        </div>
+    </div>
+
+    <script>
+        // Redirection vers la page de connexion après 1 seconde
+        setTimeout(() => {
+            window.location.href = 'login.html';
+        }, 1000);
+    </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</body>
+</html>
