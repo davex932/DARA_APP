@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil - PhotoHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/modal.css' %}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-logo">
+            <i class="fas fa-camera"></i>
+            PhotoHub
+        </div>
+        <ul class="nav-links">
+            <li><a href="{ url 'home' }" class="nav-link active"><i class="fas fa-home"></i> Accueil</a></li>
+            <li><a href="{ url 'explore' }" class="nav-link"><i class="fas fa-compass"></i> Explorer</a></li>
+            <li><a href="{ url 'upload' }" class="nav-link"><i class="fas fa-plus-circle"></i> Publier</a></li>
+            <li><a href="{ url 'profile' }" class="nav-link"><i class="fas fa-user"></i> Profil</a></li>
+        </ul>
+        <div class="nav-user">
+            <img id="nav-avatar" src="" alt="Avatar">
+            <span id="nav-username"></span>
+            <div class="user-dropdown">
+                <a href="profile.html"><i class="fas fa-user"></i> Mon profil</a>
+                <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenu principal -->
+    <main class="main-content">
+        <div class="container">
+            <header class="page-header">
+                <h1 class="page-title">Votre Flux</h1>
+                <p class="page-subtitle">Découvrez les dernières publications de la communauté</p>
+            </header>
+
+            <!-- Filtres -->
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">
+                    <i class="fas fa-layer-group"></i> Toutes
+                </button>
+                <button class="filter-btn" data-filter="following">
+                    <i class="fas fa-user-friends"></i> Abonnements
+                </button>
+                <button class="filter-btn" data-filter="popular">
+                    <i class="fas fa-fire"></i> Populaires
+                </button>
+                <button class="filter-btn" data-filter="recent">
+                    <i class="fas fa-clock"></i> Récentes
+                </button>
+            </div>
+
+            <!-- Grille de photos -->
+            <div class="photo-grid" id="photo-grid">
+                <!-- Les photos seront chargées dynamiquement -->
+            </div>
+
+            <!-- État de chargement -->
+            <div class="loading-state" id="loading-state">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Chargement des photos...</p>
+            </div>
+
+            <!-- État vide -->
+            <div class="empty-state" id="empty-state" style="display: none;">
+                <i class="fas fa-camera fa-3x"></i>
+                <h3>Aucune photo trouvée</h3>
+                <p>Soyez le premier à publier une photo !</p>
+                <a href="upload.html" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Publier une photo
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div id="photo-modal" class="modal">
+        <!-- Le contenu du modal sera chargé dynamiquement -->
+    </div>
+</body>
+</html>

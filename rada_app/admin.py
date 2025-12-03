@@ -5,4 +5,4 @@ from .models import POST,COMMENT,LIKE,User
 admin.site.register(POST)
 admin.site.register(COMMENT)
 admin.site.register(LIKE)
-admin.site.register(USer)
+admin.site.register(User)

@@ -1,0 +1,461 @@
+/* Navigation améliorée */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+    background: white;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    height: 70px;
+}
+
+.nav-logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--dark);
+    font-weight: 600;
+    padding: 10px 0;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--primary);
+}
+
+.nav-link.active {
+    position: relative;
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--primary);
+    border-radius: 2px;
+}
+
+.nav-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 25px;
+    transition: var(--transition);
+}
+
+.nav-user:hover {
+    background: rgba(108, 99, 255, 0.1);
+}
+
+.nav-user img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    padding: 10px 0;
+    min-width: 200px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: var(--transition);
+}
+
+.nav-user:hover .user-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.user-dropdown a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    text-decoration: none;
+    color: var(--dark);
+    transition: var(--transition);
+}
+
+.user-dropdown a:hover {
+    background: rgba(108, 99, 255, 0.1);
+    color: var(--primary);
+}
+
+/* Contenu principal */
+.main-content {
+    padding: 30px 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: var(--dark);
+}
+
+.page-subtitle {
+    font-size: 1.1rem;
+    color: var(--dark);
+    opacity: 0.7;
+}
+
+/* Filtres */
+.filters {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 12px 24px;
+    background: white;
+    border: 2px solid var(--gray);
+    border-radius: 25px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filter-btn.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.filter-btn:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+/* Grille de photos */
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.photo-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.photo-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* En-tête de carte */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--gray);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-details strong {
+    display: block;
+    margin-bottom: 2px;
+}
+
+.post-time {
+    font-size: 0.8rem;
+    color: var(--dark);
+    opacity: 0.7;
+}
+
+.card-menu {
+    background: none;
+    border: none;
+    color: var(--dark);
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.card-menu:hover {
+    background: var(--gray);
+}
+
+/* Image du post */
+.post-image {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.post-image:hover {
+    transform: scale(1.02);
+}
+
+/* Actions */
+.card-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--gray);
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--dark);
+    font-size: 1.1rem;
+}
+
+.action-btn:hover {
+    color: var(--primary);
+    transform: scale(1.1);
+}
+
+.like-btn.liked {
+    color: var(--secondary);
+}
+
+/* Contenu de la carte */
+.card-content {
+    padding: 15px 20px;
+}
+
+.post-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.likes-count {
+    font-weight: 600;
+}
+
+.views-count {
+    color: var(--dark);
+    opacity: 0.7;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.post-title {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    color: var(--dark);
+}
+
+.post-description {
+    color: var(--dark);
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.post-location {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--dark);
+    opacity: 0.7;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+/* Commentaires */
+.post-comments-preview {
+    margin-bottom: 15px;
+}
+
+.comment-preview {
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.comment-preview strong {
+    margin-right: 5px;
+}
+
+.view-comments-btn {
+    background: none;
+    border: none;
+    color: var(--dark);
+    opacity: 0.7;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.view-comments-btn:hover {
+    color: var(--primary);
+    opacity: 1;
+}
+
+/* Ajout de commentaire */
+.add-comment {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    border-top: 1px solid var(--gray);
+    gap: 10px;
+}
+
+.comment-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 0.9rem;
+    padding: 8px 0;
+}
+
+.post-comment-btn {
+    background: none;
+    border: none;
+    color: var(--primary);
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.post-comment-btn:hover {
+    color: var(--primary-dark);
+}
+
+/* États */
+.loading-state,
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--dark);
+}
+
+.loading-state i {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: var(--primary);
+}
+
+.empty-state i {
+    color: var(--gray);
+    margin-bottom: 20px;
+}
+
+.empty-state h3 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+
+.empty-state p {
+    margin-bottom: 20px;
+    opacity: 0.7;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0 15px;
+    }
+    
+    .nav-links {
+        gap: 15px;
+    }
+    
+    .nav-link span {
+        display: none;
+    }
+    
+    .photo-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .container {
+        padding: 0 15px;
+    }
+    
+    .page-title {
+        font-size: 2rem;
+    }
+    
+    .filters {
+        gap: 10px;
+    }
+    
+    .filter-btn {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+    }
+}

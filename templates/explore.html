@@ -1,0 +1,167 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorer - PhotoHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/explore.css' %}">
+    <link rel="stylesheet" href="{% static 'css/modal.css' %}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-logo">
+            <i class="fas fa-camera"></i>
+            PhotoHub
+        </div>
+        <ul class="nav-links">
+            <li><a href="home.html" class="nav-link"><i class="fas fa-home"></i> Accueil</a></li>
+            <li><a href="explore.html" class="nav-link active"><i class="fas fa-compass"></i> Explorer</a></li>
+            <li><a href="upload.html" class="nav-link"><i class="fas fa-plus-circle"></i> Publier</a></li>
+            <li><a href="profile.html" class="nav-link"><i class="fas fa-user"></i> Profil</a></li>
+        </ul>
+        <div class="nav-user">
+            <img id="nav-avatar" src="" alt="Avatar">
+            <span id="nav-username"></span>
+            <div class="user-dropdown">
+                <a href="profile.html"><i class="fas fa-user"></i> Mon profil</a>
+                <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenu principal -->
+    <main class="main-content">
+        <div class="container">
+            <header class="page-header">
+                <h1 class="page-title">Explorer</h1>
+                <p class="page-subtitle">Découvrez des photos incroyables de notre communauté</p>
+            </header>
+
+            <!-- Barre de recherche -->
+            <div class="search-section">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search-input" placeholder="Rechercher des photos, utilisateurs, lieux...">
+                    <button id="search-btn" class="btn btn-primary">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Catégories -->
+            <div class="categories-section">
+                <h3>Catégories</h3>
+                <div class="categories-grid">
+                    <div class="category-card" data-category="all">
+                        <div class="category-icon">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                        <span>Toutes</span>
+                    </div>
+                    <div class="category-card" data-category="nature">
+                        <div class="category-icon">
+                            <i class="fas fa-tree"></i>
+                        </div>
+                        <span>Nature</span>
+                    </div>
+                    <div class="category-card" data-category="urban">
+                        <div class="category-icon">
+                            <i class="fas fa-city"></i>
+                        </div>
+                        <span>Urbain</span>
+                    </div>
+                    <div class="category-card" data-category="portrait">
+                        <div class="category-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <span>Portrait</span>
+                    </div>
+                    <div class="category-card" data-category="travel">
+                        <div class="category-icon">
+                            <i class="fas fa-plane"></i>
+                        </div>
+                        <span>Voyage</span>
+                    </div>
+                    <div class="category-card" data-category="food">
+                        <div class="category-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <span>Nourriture</span>
+                    </div>
+                    <div class="category-card" data-category="animal">
+                        <div class="category-icon">
+                            <i class="fas fa-paw"></i>
+                        </div>
+                        <span>Animaux</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filtres avancés -->
+            <div class="advanced-filters">
+                <div class="filter-group">
+                    <label>Trier par :</label>
+                    <select id="sort-select">
+                        <option value="recent">Plus récent</option>
+                        <option value="popular">Plus populaire</option>
+                        <option value="likes">Plus de likes</option>
+                        <option value="views">Plus de vues</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label>Période :</label>
+                    <select id="time-select">
+                        <option value="all">Toujours</option>
+                        <option value="today">Aujourd'hui</option>
+                        <option value="week">Cette semaine</option>
+                        <option value="month">Ce mois</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Résultats -->
+            <div class="results-section">
+                <div class="results-header">
+                    <h3 id="results-title">Photos récentes</h3>
+                    <span id="results-count" class="results-count"></span>
+                </div>
+
+                <!-- Grille de photos -->
+                <div class="photo-grid" id="photo-grid">
+                    <!-- Les photos seront chargées dynamiquement -->
+                </div>
+
+                <!-- État de chargement -->
+                <div class="loading-state" id="loading-state">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Recherche de photos...</p>
+                </div>
+
+                <!-- État vide -->
+                <div class="empty-state" id="empty-state" style="display: none;">
+                    <i class="fas fa-search fa-3x"></i>
+                    <h3>Aucune photo trouvée</h3>
+                    <p>Essayez de modifier vos critères de recherche</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div id="photo-modal" class="modal">
+        <!-- Le contenu du modal sera chargé dynamiquement -->
+    </div>
+
+    <script src="{% static 'js/config.js' %}"></script>
+    <script src="{% static 'js/database.js' %}"></script>
+    <script src="{% static 'js/utils.js' %}"></script>
+    <script src="{% static 'js/auth.js' %}"></script>
+    <script src="{% static 'js/modal.js' %}"></script>
+    <script src="{% static 'js/explore.js' %}"></script>
+</body>
+</html>
