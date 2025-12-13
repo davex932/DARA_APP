@@ -41,7 +41,8 @@
             </header>
 
             <div class="upload-container">
-                <form id="upload-form" class="upload-form">
+                <form id="upload-form" class="upload-form" method='post' enctype="multipart/form-data">
+                    {% csrf_token %}
                     <!-- Zone de téléversement -->
                     <div class="upload-section">
                         <div class="upload-area" id="upload-area">
@@ -52,7 +53,7 @@
                                 <label for="file-input" class="btn btn-outline browse-label">
                                     <i class="fas fa-folder-open"></i> Parcourir vos fichiers
                                 </label>
-                                <input type="file" id="file-input" accept="image/*" style="display: none;">
+                                <input type="file" id="file-input" accept="image/*" style="display: none;" name="file">
                                 <div class="upload-info">
                                     <p>Formats supportés : JPG, PNG, GIF, WebP</p>
                                     <p>Taille maximale : 5MB</p>
@@ -81,7 +82,7 @@
                         <h3>Détails de la publication</h3>
                         <div class="form-group">
                             <label for="photo-description">Description</label>
-                            <textarea id="photo-description" placeholder="Décrivez votre photo, partagez son histoire ou son contexte..." rows="4"></textarea>
+                            <textarea id="photo-description" placeholder="Décrivez votre photo, partagez son histoire ou son contexte..." rows="4" name="content"></textarea>
                             <div class="char-count">
                                 <span id="description-count">0</span>/500
                             </div>
@@ -90,7 +91,7 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="photo-category">Catégorie</label>
-                                <select id="photo-category">
+                                <select id="photo-category" name="category">
                                     <option value="">Choisir une catégorie</option>
                                     <option value="nature">Nature</option>
                                     <option value="urban">Urbain</option>
@@ -104,7 +105,7 @@
                         </div>
                     <!-- Actions -->
                     <div class="form-actions">
-                        <button type="button" class="btn btn-secondary" onclick="window.location.href='home.html'">
+                        <button type="reset" class="btn btn-secondary" onclick="window.location.href='home.html'">
                             <i class="fas fa-times"></i> Annuler
                         </button>
                         <button type="submit" class="btn btn-primary" id="publish-btn">
@@ -135,6 +136,6 @@
     <script src="{% static 'js/database.js' %}"></script>
     <script src="{% static 'js/utils.js' %}"></script>
     <script src="{% static 'js/auth.js' %}"></script>
-    <script src="{% static 'js/upload.js' %}"></script>
+   <!-- <script src="{% static 'js/upload.js' %}"></script>-->
 </body>
 </html>

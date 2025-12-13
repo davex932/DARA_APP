@@ -83,7 +83,7 @@
         resetPreview();
     });
 
-    // Simulation d'upload et gestion du formulaire
+    /* Simulation d'upload et gestion du formulaire
     uploadForm && uploadForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
@@ -120,6 +120,7 @@
 
         // Note: remplacer la simulation par un vrai fetch()/XMLHttpRequest pour upload réel côté serveur
     });
+    */
 
     // Drag & drop minimal (si upload-area présent)
     const uploadArea = document.getElementById('upload-area');
