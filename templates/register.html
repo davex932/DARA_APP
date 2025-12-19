@@ -39,8 +39,8 @@
                     <label for="confirm-password">Confirmer le mot de passe</label>
                     <input type="password" id="confirm-password" placeholder="Retapez votre mot de passe" name='password2' required>
                 </div>
-                {% if Success %}
-                    <p style="color: red">Vos mots de passe ne correspondent pas! </p>
+                {% if error %}
+                    <p class="field-error">{{ error }}</p>
                 {% endif %}
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-user-plus"></i> S'inscrire

@@ -64,7 +64,7 @@
                                     <div class="user-info">
                                         <img class="user-avatar" src="https://via.placeholder.com/40" alt="alice_photo">
                                         <div class="user-details">
-                                            <strong>alice_photo</strong>
+                                            <strong>{{ post.user.username }}</strong>
                                             <span class="post-time">{{ post.times_ago }}</span>
                                         </div>
                                     </div>
@@ -91,11 +91,11 @@
                                     </div>
 
                                     <div class="post-caption">
-                                        <strong>alice_photo</strong>
-                                        <p>Un merveilleux coucher de soleil en bord de mer. 🌊 Les couleurs étaient incroyables ce soir-là.</p>
+                                        <strong>{{ post.user.username }}</strong>
+                                        <p>{{ post.content }}</p>
                                     </div>
 
-                                    <button class="view-comments-link">Voir les 3 commentaires</button>
+                                    <button class="view-comments-link" data-post-id="{{ post.id }}">Voir les {{ post.comments.count }} commentaires</button>
                                 </div>
 
                                 <div class="add-comment">
@@ -108,48 +108,28 @@
                                 </div>
                             </article>
                             <!-- Modal Commentaires -->
-                            <div class="modal-overlay" id="comments-modal">
+                            <div class="modal-overlay" id="comments-modal-{{post.id}}">
                                 <div class="modal-container">
                                     <div class="modal-header">
                                         <h2>Commentaires</h2>
-                                        <button class="modal-close" onclick="closeModal()">&times;</button>
+                                        <button class="modal-close" onclick="closeModal({{post.id}})">&times;</button>
                                     </div>
 
                                     <div class="modal-body">
                                         <!-- Les commentaires seront affichés ici -->
                                         <div class="comments-list">
+                                            {% for comment in post.comments.all %}
                                             <div class="comment-item">
                                                 <img class="comment-avatar" src="https://via.placeholder.com/36" alt="pierre">
                                                 <div class="comment-content">
                                                     <div class="comment-header">
-                                                        <strong>pierre</strong>
-                                                        <span class="comment-time">2 min</span>
+                                                        <strong>{{ comment.auteur.username }}</strong>
+                                                        <span class="comment-time">{{comment.commented_times_ago}}</span>
                                                     </div>
-                                                    <p class="comment-text">Magnifique ! Les couleurs sont incroyables 😍</p>
+                                                    <p class="comment-text">{{ comment.content }}</p>
                                                 </div>
                                             </div>
-
-                                            <div class="comment-item">
-                                                <img class="comment-avatar" src="https://via.placeholder.com/36" alt="maria">
-                                                <div class="comment-content">
-                                                    <div class="comment-header">
-                                                        <strong>maria</strong>
-                                                        <span class="comment-time">5 min</span>
-                                                    </div>
-                                                    <p class="comment-text">J'adore cette photo ! Où a-t-elle été prise ?</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="comment-item">
-                                                <img class="comment-avatar" src="https://via.placeholder.com/36" alt="jean">
-                                                <div class="comment-content">
-                                                    <div class="comment-header">
-                                                        <strong>jean</strong>
-                                                        <span class="comment-time">10 min</span>
-                                                    </div>
-                                                    <p class="comment-text">Parfait pour mon fond d'écran ! Merci de partager 🙏</p>
-                                                </div>
-                                            </div>
+                                            {% endfor %}
                                         </div>
                                     </div>
 
@@ -165,30 +145,43 @@
                             </div>
     {% endfor %}
                 </div>
-                    {% endif %}
+{% endif %}
             </div>
         </main>
     <script>
-        // Ouvrir le modal au clic sur "Voir les X commentaires"
         document.querySelectorAll('.view-comments-link').forEach(btn => {
-            btn.addEventListener('click', function(e) {
+            btn.addEventListener('click', function (e) {
                 e.preventDefault();
-                document.getElementById('comments-modal').classList.add('active');
-                document.body.style.overflow = 'hidden';
+
+                const postId = this.dataset.postId;
+                const modal = document.getElementById(`comments-modal-${postId}`);
+
+                if (modal) {
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
             });
         });
 
-        // Fermer le modal
-        function closeModal() {
-            document.getElementById('comments-modal').classList.remove('active');
+        function closeModal(postId) {
+            if (postId) {
+                const modal = document.getElementById(`comments-modal-${postId}`);
+                if (modal) modal.classList.remove('active');
+            } else {
+                document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
+            }
             document.body.style.overflow = 'auto';
         }
 
-        // Fermer au clic sur l'overlay (arrière-plan)
-        document.getElementById('comments-modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
+
+        // Fermer au clic sur l'overlay (arrière-plan) pour chaque modal
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
         });
 
         // Fermer avec la touche Échap
