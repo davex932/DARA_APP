@@ -43,19 +43,28 @@ def login_user(request):
 
 def home(request):
     if request.method=='POST':
+        id_post_liked= request.POST.get('is_liked')
         content= request.POST.get('content')
         id_post= request.POST.get('post_id')
-        post= POST.objects.get(id= id_post)
-        user= request.user
-        COMMENT.objects.create(auteur=user, post=post, content=content)
-        return redirect('home')
+        if content:
+            post= POST.objects.get(id= id_post)
+            user= request.user
+            COMMENT.objects.create(auteur=user, post=post, content=content)
+            return redirect('home')
+        elif id_post_liked:
+            post= POST.objects.get(id = id_post_liked)
+            user= request.user
+            like, created=LIKE.objects.get_or_create(user= user, post= post)
+            if not created:
+                like.delete()
+            return redirect('home')
 
     post= (
         POST.objects.select_related('user')
         .prefetch_related('comments__auteur')
     )
-    posts= {'posts': post}
-    return render(request, 'home.html', posts)
+    # posts= {'posts': post}
+    return render(request, 'home.html', {'posts': post})
 
 def upload(request):
     if request.method == 'POST':
@@ -76,6 +85,6 @@ def explore(request):
 
 def logout_user(request):
     logout(request)
-    redirect('login')
+    return redirect('login')
 
             

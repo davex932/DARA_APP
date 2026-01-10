@@ -57,6 +57,33 @@ a {
     color: var(--text-primary);
 }
 
+/* === LIKES - coeur rose & animation === */
+:root {
+    --like-color: #ff6584;
+}
+
+/* default heart color */
+.like-btn i {
+    color: #111; /* coeur défaut: gris foncé/noir discret */
+    transition: color 0.18s ease, transform 0.18s ease;
+}
+
+.like-btn.liked i {
+    color: var(--like-color) !important;
+    transform: scale(1.18);
+    transition: transform 0.18s ease, color 0.18s ease;
+}
+
+/* petit pop lors du clique */
+.like-btn.pop i {
+    transform: scale(1.4);
+}
+
+/* Accessibilité: état pressé */
+.like-btn[aria-pressed="true"] i {
+    color: var(--like-color) !important;
+}
+
 /* === 2. BARRE DE NAVIGATION (NAVBAR) === */
 .navbar {
     background-color: #ffffff !important;

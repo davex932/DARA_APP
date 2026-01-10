@@ -1,9 +1,16 @@
 from django.db import models
 from django.utils.timesince import timesince
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 
+def validate_image(fieldfile_obj):
+    if not fieldfile_obj.name.lower().endswith(('.png','jpg','jpeg','.gif','.mp4')):
+        raise ValidationError("Unsupported file extension.")
+class profile(models.Model):
+    user= models.OneToOneField(User, on_delete= models.CASCADE)
+    profile_picture= models.FileField(upload_to= 'profiles/', null=True, blank=True, validators=[validate_image])
 class POST(models.Model):
     user= models.ForeignKey(User, on_delete= models.CASCADE, null=True)
     content= models.TextField()
@@ -27,4 +34,6 @@ class COMMENT(models.Model):
 class LIKE(models.Model):
     post= models.ForeignKey(POST, on_delete=models.CASCADE)
     user= models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    liked_at= models.DateTimeField(auto_now= True)
+
+    class Meta:
+        unique_together= ('post', 'user')

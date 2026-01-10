@@ -27,7 +27,7 @@
             <span id="nav-username">Utilisateur</span>
             <div class="user-dropdown">
                 <a href="{% url 'profile' %}"><i class="fas fa-user"></i> Mon profil</a>
-                <a href="{% url 'login' %}"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+                <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
             </div>
         </div>
     </nav>
@@ -76,9 +76,13 @@
                                 </div>
 
                                 <div class="card-actions">
-                                    <button class="action-btn like-btn" title="J'aime">
-                                        <i class="far fa-heart"></i>
-                                    </button>
+                                    <form method="POST" action="{% url 'home' %}" class="like-form">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="is_liked" value="{{ post.id }}">
+                                        <button type="submit" class="action-btn like-btn" title="J'aime">
+                                            <i class="far fa-heart"></i>
+                                        </button>
+                                    </form>
                                     <button class="action-btn comment-btn" title="Commenter">
                                         <i class="far fa-comment"></i>
                                     </button>
@@ -86,9 +90,7 @@
                                 </div>
 
                                 <div class="card-content">
-                                    <div class="post-stats">
-                                        <span class="likes-count">1 247 j'aime</span>
-                                    </div>
+
 
                                     <div class="post-caption">
                                         <strong>{{ post.user.username }}</strong>
@@ -191,5 +193,6 @@
             }
         });
     </script>
+    <!-- <script src="{% static 'js/home.js' %}"></script> -->
 </body>
 </html>
