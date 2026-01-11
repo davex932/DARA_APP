@@ -14,7 +14,7 @@ class PROFILE(models.Model):
     bio= models.CharField(max_length= 500, blank=True)
 
 class POST(models.Model):
-    user= models.ForeignKey(User, on_delete= models.CASCADE, null=True)
+    profile= models.ForeignKey(PROFILE, on_delete= models.CASCADE, null=True)
     content= models.TextField()
     category= models.CharField(max_length= 50, default= 'General')
     created_at= models.DateTimeField(auto_now_add=True)

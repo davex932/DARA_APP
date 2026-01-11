@@ -58,21 +58,27 @@ def home(request):
             if not created:
                 like.delete()
             return redirect('home')
-
+    user = request.user
+    user_profile= User.objects.select_related('profile').get(id=user.id)
     post= (
-        POST.objects.select_related('user')
+        POST.objects.select_related('profile__user')
         .prefetch_related('comments__auteur')
     )
-    # posts= {'posts': post}
-    return render(request, 'home.html', {'posts': post})
+    return render(request, 'home.html', {'posts': post, 'user_profile': user_profile})
 
 def upload(request):
     if request.method == 'POST':
             content = request.POST.get('content')
             category = request.POST.get('category')
             images = request.FILES.get('file') 
-            user= request.user          
-            POST.objects.create(user=user, content=content, category=category, images=images)
+            users= request.user  
+            user_profile= PROFILE.objects.get(user_id= users)        
+            POST.objects.create(
+                profile=user_profile, 
+                content= content, 
+                category= category, 
+                images= images
+            )
             return redirect('home') 
     
     return render(request, 'upload.html')
@@ -86,7 +92,12 @@ def profile(request):
         if user_name:
             user.username= user_name
             user.save()
-        PROFILE.objects.create(user=user, profile_picture=profile_picture, bio=bio)
+        PROFILE.objects.update_or_create(user=user,
+            defaults={
+                'profile_picture': profile_picture,
+                'bio': bio
+            }
+        )
         return redirect('profile')
 
     return render(request, 'profile.html')

@@ -23,8 +23,10 @@
             <li><a href="{% url 'profile' %}" class="nav-link"><i class="fas fa-user"></i> Profil</a></li>
         </ul>
         <div class="nav-user">
-            <img id="nav-avatar" src="https://via.placeholder.com/40" alt="Avatar">
-            <span id="nav-username">Utilisateur</span>
+            {% if user_profile %}
+            <img id="nav-avatar" src="{{ user_profile.profile.profile_picture.url }}" alt="Avatar">
+            <span id="nav-username">{{ user_profile.username }}</span>
+            {% endif %}
             <div class="user-dropdown">
                 <a href="{% url 'profile' %}"><i class="fas fa-user"></i> Mon profil</a>
                 <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
@@ -62,9 +64,9 @@
                             <article class="photo-card">
                                 <header class="card-header">
                                     <div class="user-info">
-                                        <img class="user-avatar" src="https://via.placeholder.com/40" alt="alice_photo">
+                                        <img class="user-avatar" src="{{ post.profile.profile_picture.url }}" alt="alice_photo">
                                         <div class="user-details">
-                                            <strong>{{ post.user.username }}</strong>
+                                            <strong>{{ post.profile.user.username }}</strong>
                                             <span class="post-time">{{ post.times_ago }}</span>
                                         </div>
                                     </div>
