@@ -8,15 +8,17 @@ from django.core.exceptions import ValidationError
 def validate_image(fieldfile_obj):
     if not fieldfile_obj.name.lower().endswith(('.png','jpg','jpeg','.gif','.mp4')):
         raise ValidationError("Unsupported file extension.")
-class profile(models.Model):
+class PROFILE(models.Model):
     user= models.OneToOneField(User, on_delete= models.CASCADE)
-    profile_picture= models.FileField(upload_to= 'profiles/', null=True, blank=True, validators=[validate_image])
+    profile_picture= models.ImageField(upload_to= 'profiles/', null=True, blank=True)
+    bio= models.CharField(max_length= 500, blank=True)
+
 class POST(models.Model):
     user= models.ForeignKey(User, on_delete= models.CASCADE, null=True)
     content= models.TextField()
     category= models.CharField(max_length= 50, default= 'General')
     created_at= models.DateTimeField(auto_now_add=True)
-    images= models.ImageField(upload_to= 'posts/', null=True, blank=True)
+    images= models.FileField(upload_to= 'posts/', null=True, blank=True, validators=[validate_image])
     
     def times_ago(self):
         return timesince(self.created_at)+' ago'

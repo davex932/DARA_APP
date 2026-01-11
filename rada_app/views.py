@@ -3,7 +3,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
-from .models import POST, COMMENT, LIKE, User
+from .models import POST, COMMENT, LIKE, User, PROFILE
 # Create your views here.
 
 def register_user(request):
@@ -78,6 +78,17 @@ def upload(request):
     return render(request, 'upload.html')
 
 def profile(request):
+    if request.method == 'POST':
+        profile_picture= request.FILES.get('profile_picture')
+        bio= request.POST.get('bio')
+        user_name= request.POST.get('username')
+        user= request.user
+        if user_name:
+            user.username= user_name
+            user.save()
+        PROFILE.objects.create(user=user, profile_picture=profile_picture, bio=bio)
+        return redirect('profile')
+
     return render(request, 'profile.html')
 
 def explore(request):
