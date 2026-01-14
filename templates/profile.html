@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -5,432 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil - PhotoHub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            color: #333;
-        }
-
-        /* Navigation */
-        .navbar {
-            background: white;
-            padding: 1rem 2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #667eea;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-link {
-            text-decoration: none;
-            color: #666;
-            transition: color 0.3s;
-        }
-
-        .nav-link:hover, .nav-link.active {
-            color: #667eea;
-        }
-
-        .nav-user {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
-        }
-
-        .nav-user img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        /* Main Content */
-        .main-content {
-            padding: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .container {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        /* Profile Header */
-        .profile-header {
-            display: flex;
-            gap: 3rem;
-            margin-bottom: 2rem;
-            padding-bottom: 2rem;
-            border-bottom: 2px solid #f0f0f0;
-        }
-
-        .profile-avatar-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .avatar-container {
-            position: relative;
-        }
-
-        .profile-avatar {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid #667eea;
-        }
-
-        .avatar-edit-btn {
-            position: absolute;
-            bottom: 5px;
-            right: 5px;
-            background: #667eea;
-            color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: background 0.3s;
-        }
-
-        .avatar-edit-btn:hover {
-            background: #5568d3;
-        }
-
-        .profile-info-section {
-            flex: 1;
-        }
-
-        .profile-username {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            color: #333;
-        }
-
-        .profile-bio {
-            color: #666;
-            margin-bottom: 0.5rem;
-        }
-
-        .profile-joined {
-            color: #999;
-            font-size: 0.9rem;
-        }
-
-        .profile-stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 1rem;
-            background: #f8f9fa;
-            border-radius: 10px;
-        }
-
-        .stat-value {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #667eea;
-        }
-
-        .stat-label {
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        .profile-actions {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .btn {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s;
-        }
-
-        .btn-primary {
-            background: #667eea;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #5568d3;
-            transform: translateY(-2px);
-        }
-
-        .btn-outline {
-            background: white;
-            color: #667eea;
-            border: 2px solid #667eea;
-        }
-
-        .btn-outline:hover {
-            background: #667eea;
-            color: white;
-        }
-
-        /* Profile Nav */
-        .profile-nav {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            border-bottom: 2px solid #f0f0f0;
-        }
-
-        .profile-nav-btn {
-            padding: 1rem 1.5rem;
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #666;
-            font-size: 1rem;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s;
-        }
-
-        .profile-nav-btn:hover {
-            color: #667eea;
-        }
-
-        .profile-nav-btn.active {
-            color: #667eea;
-            border-bottom-color: #667eea;
-        }
-
-        /* Tab Content */
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 3rem;
-            color: #999;
-        }
-
-        .empty-state i {
-            color: #ddd;
-            margin-bottom: 1rem;
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.7);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 15px;
-            width: 90%;
-            max-width: 600px;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem;
-            border-bottom: 2px solid #f0f0f0;
-        }
-
-        .modal-header h3 {
-            color: #333;
-        }
-
-        .close-modal {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #999;
-            transition: color 0.3s;
-        }
-
-        .close-modal:hover {
-            color: #333;
-        }
-
-        .modal-body {
-            padding: 1.5rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #333;
-            font-weight: 500;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.75rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .char-count {
-            text-align: right;
-            color: #999;
-            font-size: 0.9rem;
-            margin-top: 0.25rem;
-        }
-
-        .form-actions {
-            display: flex;
-            gap: 1rem;
-            justify-content: flex-end;
-            margin-top: 2rem;
-        }
-
-        .btn-secondary {
-            background: #e0e0e0;
-            color: #666;
-        }
-
-        .btn-secondary:hover {
-            background: #d0d0d0;
-        }
-
-        /* Avatar Preview in Modal */
-        .avatar-preview-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .avatar-preview {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #667eea;
-        }
-
-        .upload-btn {
-            cursor: pointer;
-        }
-
-        /* Notification */
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 1rem 1.5rem;
-            border-radius: 10px;
-            color: white;
-            font-weight: 500;
-            z-index: 2000;
-            animation: slideIn 0.3s ease-out;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-
-        .notification.success {
-            background: #10b981;
-        }
-
-        .notification.error {
-            background: #ef4444;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideOut {
-            from {
-                transform: translateX(0);
-                opacity: 1;
-            }
-            to {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 </head>
 <body>
     <!-- Navigation -->
@@ -440,14 +16,15 @@
             PhotoHub
         </div>
         <ul class="nav-links">
-            <li><a href="home.html" class="nav-link"><i class="fas fa-home"></i> Accueil</a></li>
-            <li><a href="explore.html" class="nav-link"><i class="fas fa-compass"></i> Explorer</a></li>
-            <li><a href="upload.html" class="nav-link"><i class="fas fa-plus-circle"></i> Publier</a></li>
-            <li><a href="profile.html" class="nav-link active"><i class="fas fa-user"></i> Profil</a></li>
+            <li><a href="{% url 'home' %}" class="nav-link"><i class="fas fa-home"></i> Accueil</a></li>
+            <li><a href="{% url 'explore' %}" class="nav-link"><i class="fas fa-compass"></i> Explorer</a></li>
+            <li><a href="{% url 'upload' %}" class="nav-link"><i class="fas fa-plus-circle"></i> Publier</a></li>
+            <li><a href="{% url 'profile' %}" class="nav-link active"><i class="fas fa-user"></i> Profil</a></li>
         </ul>
+                        {% if user %}
         <div class="nav-user">
-            <img id="nav-avatar" src="https://via.placeholder.com/40" alt="Avatar">
-            <span id="nav-username">Utilisateur</span>
+            <img id="nav-avatar" src="{{ user.profile.profile_picture.url }}" alt="Avatar">
+            <span id="nav-username">{{ user.username }}</span>
         </div>
     </nav>
 
@@ -458,7 +35,7 @@
             <div class="profile-header">
                 <div class="profile-avatar-section">
                     <div class="avatar-container">
-                        <img id="profile-avatar" src="https://via.placeholder.com/150" alt="Photo de profil" class="profile-avatar">
+                        <img id="profile-avatar" src="{{ user.profile.profile_picture.url }}" alt="Photo de profil" class="profile-avatar">
                         <button class="avatar-edit-btn" id="avatar-edit-btn" type="button">
                             <i class="fas fa-camera"></i>
                         </button>
@@ -471,11 +48,10 @@
 
                 <div class="profile-info-section">
                     <div class="profile-main-info">
-                        <h1 id="profile-username" class="profile-username">Utilisateur</h1>
-                        <p id="profile-bio" class="profile-bio">Aucune bio définie</p>
-                        <p class="profile-joined" id="profile-joined">Membre depuis janvier 2025</p>
+                        <h1 id="profile-username" class="profile-username">{{ user.username }}</h1>
+                        <p id="profile-bio" class="profile-bio">{{ user.profile.bio }}</p>
                     </div>
-
+                        {% endif %}
                     <div class="profile-stats">
                         <div class="stat-item">
                             <div class="stat-value" id="stat-posts">0</div>
@@ -524,13 +100,144 @@
 
             <!-- Contenu des onglets -->
             <div class="profile-content">
-                <div class="tab-content active" id="photos-tab">
-                    <div class="empty-state">
-                        <i class="fas fa-camera fa-3x"></i>
-                        <h3>Aucune photo publiée</h3>
-                        <p>Commencez par partager votre première photo avec la communauté !</p>
+                <!-- Remplacer le contenu de #photos-tab dans profile.html -->
+<div class="tab-content active" id="photos-tab">
+    <div class="publications-grid">
+        <!-- Carte publication 1 -->
+        <div class="publication-card">
+            <div class="publication-header">
+                <div class="publication-user-info">
+                    <img src="https://via.placeholder.com/32" alt="Avatar" class="publication-avatar">
+                    <div>
+                        <h4 class="publication-username">Davex932</h4>
+                        <span class="publication-time">2 days, 23 hours ago</span>
                     </div>
                 </div>
+                <button class="publication-menu-btn" type="button">
+                    <i class="fas fa-ellipsis-h"></i>
+                </button>
+            </div>
+            
+            <div class="publication-image-wrapper">
+                <img src="https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=600" 
+                     alt="Publication" 
+                     class="publication-image">
+            </div>
+            
+            <div class="publication-actions">
+                <button class="publication-action-btn like-btn" type="button">
+                    <i class="far fa-heart"></i>
+                </button>
+                <button class="publication-action-btn" type="button">
+                    <i class="far fa-comment"></i>
+                </button>
+            </div>
+            
+            <div class="publication-content">
+                <p class="publication-caption">quelle elle image</p>
+                <button class="view-comments" type="button">Voir les 1 commentaires</button>
+            </div>
+            
+            <div class="publication-add-comment">
+                <input type="text" 
+                       class="publication-comment-input" 
+                       placeholder="Ajouter un commentaire...">
+                <button class="publication-post-btn" type="button">Publier</button>
+            </div>
+        </div>
+
+        <!-- Carte publication 2 -->
+        <div class="publication-card">
+            <div class="publication-header">
+                <div class="publication-user-info">
+                    <img src="https://via.placeholder.com/32" alt="Avatar" class="publication-avatar">
+                    <div>
+                        <h4 class="publication-username">Davex932</h4>
+                        <span class="publication-time">1 week ago</span>
+                    </div>
+                </div>
+                <button class="publication-menu-btn" type="button">
+                    <i class="fas fa-ellipsis-h"></i>
+                </button>
+            </div>
+            
+            <div class="publication-image-wrapper">
+                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600" 
+                     alt="Publication" 
+                     class="publication-image">
+            </div>
+            
+            <div class="publication-actions">
+                <button class="publication-action-btn like-btn" type="button">
+                    <i class="far fa-heart"></i>
+                </button>
+                <button class="publication-action-btn" type="button">
+                    <i class="far fa-comment"></i>
+                </button>
+            </div>
+            
+            <div class="publication-content">
+                <p class="publication-caption">Magnifique paysage de montagne 🏔️</p>
+                <button class="view-comments" type="button">Voir les 3 commentaires</button>
+            </div>
+            
+            <div class="publication-add-comment">
+                <input type="text" 
+                       class="publication-comment-input" 
+                       placeholder="Ajouter un commentaire...">
+                <button class="publication-post-btn" type="button">Publier</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Remplacer le contenu de #liked-tab -->
+    <div class="tab-content" id="liked-tab">
+        <div class="publications-grid">
+            <!-- Carte publication aimée 1 -->
+            <div class="publication-card">
+                <div class="publication-header">
+                    <div class="publication-user-info">
+                        <img src="https://via.placeholder.com/32" alt="Avatar" class="publication-avatar">
+                        <div>
+                            <h4 class="publication-username">JohnDoe</h4>
+                            <span class="publication-time">3 days ago</span>
+                        </div>
+                    </div>
+                    <button class="publication-menu-btn" type="button">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </button>
+                </div>
+                
+                <div class="publication-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=600" 
+                        alt="Publication" 
+                        class="publication-image">
+                </div>
+                
+                <div class="publication-actions">
+                    <button class="publication-action-btn like-btn liked" type="button">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <button class="publication-action-btn" type="button">
+                        <i class="far fa-comment"></i>
+                    </button>
+                </div>
+                
+                <div class="publication-content">
+                    <p class="publication-caption">Nature au lever du soleil ☀️</p>
+                    <button class="view-comments" type="button">Voir les 12 commentaires</button>
+                </div>
+                
+                <div class="publication-add-comment">
+                    <input type="text" 
+                        class="publication-comment-input" 
+                        placeholder="Ajouter un commentaire...">
+                    <button class="publication-post-btn" type="button">Publier</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
                 <div class="tab-content" id="liked-tab">
                     <div class="empty-state">

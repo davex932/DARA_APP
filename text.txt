@@ -1,4 +1,4 @@
- {% load static %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -6,9 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil - PhotoHub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/profile.css' %}">
-    <link rel="stylesheet" href="{% static 'css/modal.css' %}">
 </head>
 <body>
     <!-- Navigation -->
@@ -18,18 +16,14 @@
             PhotoHub
         </div>
         <ul class="nav-links">
-            <li><a href="home.html" class="nav-link"><i class="fas fa-home"></i> Accueil</a></li>
-            <li><a href="explore.html" class="nav-link"><i class="fas fa-compass"></i> Explorer</a></li>
-            <li><a href="upload.html" class="nav-link"><i class="fas fa-plus-circle"></i> Publier</a></li>
-            <li><a href="profile.html" class="nav-link active"><i class="fas fa-user"></i> Profil</a></li>
+            <li><a href="{% url 'home' %}" class="nav-link"><i class="fas fa-home"></i> Accueil</a></li>
+            <li><a href="{% url 'explore' %}" class="nav-link"><i class="fas fa-compass"></i> Explorer</a></li>
+            <li><a href="{% url 'upload' %}" class="nav-link"><i class="fas fa-plus-circle"></i> Publier</a></li>
+            <li><a href="{% url 'profile' %}" class="nav-link active"><i class="fas fa-user"></i> Profil</a></li>
         </ul>
         <div class="nav-user">
-            <img id="nav-avatar" src="" alt="Avatar">
-            <span id="nav-username"></span>
-            <div class="user-dropdown">
-                <a href="profile.html"><i class="fas fa-user"></i> Mon profil</a>
-                <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
-            </div>
+            <img id="nav-avatar" src="https://via.placeholder.com/40" alt="Avatar">
+            <span id="nav-username">Utilisateur</span>
         </div>
     </nav>
 
@@ -40,24 +34,22 @@
             <div class="profile-header">
                 <div class="profile-avatar-section">
                     <div class="avatar-container">
-                        <img id="profile-avatar" src="" alt="Photo de profil" class="profile-avatar">
-                        <button class="avatar-edit-btn" id="avatar-edit-btn">
+                        <img id="profile-avatar" src="https://via.placeholder.com/150" alt="Photo de profil" class="profile-avatar">
+                        <button class="avatar-edit-btn" id="avatar-edit-btn" type="button">
                             <i class="fas fa-camera"></i>
                         </button>
                         <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
                     </div>
-                    <div class="avatar-actions">
-                        <button class="btn btn-outline" id="change-avatar-btn">
-                            <i class="fas fa-camera"></i> Changer la photo
-                        </button>
-                    </div>
+                    <button class="btn btn-outline" id="change-avatar-btn" type="button">
+                        <i class="fas fa-camera"></i> Changer la photo
+                    </button>
                 </div>
 
                 <div class="profile-info-section">
                     <div class="profile-main-info">
-                        <h1 id="profile-username" class="profile-username"></h1>
-                        <p id="profile-bio" class="profile-bio"></p>
-                        <p class="profile-joined" id="profile-joined"></p>
+                        <h1 id="profile-username" class="profile-username">Utilisateur</h1>
+                        <p id="profile-bio" class="profile-bio">Aucune bio définie</p>
+                        <p class="profile-joined" id="profile-joined">Membre depuis janvier 2025</p>
                     </div>
 
                     <div class="profile-stats">
@@ -80,10 +72,10 @@
                     </div>
 
                     <div class="profile-actions">
-                        <button class="btn btn-primary" id="edit-profile-btn">
+                        <button class="btn btn-primary" id="edit-profile-btn" type="button">
                             <i class="fas fa-edit"></i> Modifier le profil
                         </button>
-                        <button class="btn btn-outline" id="settings-btn">
+                        <button class="btn btn-outline" id="settings-btn" type="button">
                             <i class="fas fa-cog"></i> Paramètres
                         </button>
                     </div>
@@ -92,50 +84,30 @@
 
             <!-- Navigation du profil -->
             <div class="profile-nav">
-                <button class="profile-nav-btn active" data-tab="photos">
+                <button class="profile-nav-btn active" data-tab="photos" type="button">
                     <i class="fas fa-images"></i> Mes photos
                 </button>
-                <button class="profile-nav-btn" data-tab="liked">
+                <button class="profile-nav-btn" data-tab="liked" type="button">
                     <i class="fas fa-heart"></i> Photos aimées
                 </button>
-                <button class="profile-nav-btn" data-tab="collections">
+                <button class="profile-nav-btn" data-tab="collections" type="button">
                     <i class="fas fa-bookmark"></i> Collections
                 </button>
-                <button class="profile-nav-btn" data-tab="about">
+                <button class="profile-nav-btn" data-tab="about" type="button">
                     <i class="fas fa-info-circle"></i> À propos
                 </button>
             </div>
 
             <!-- Contenu des onglets -->
             <div class="profile-content">
-                <!-- Onglet Mes photos -->
                 <div class="tab-content active" id="photos-tab">
-                    <div class="tab-header">
-                        <h2>Mes photos</h2>
-                        <div class="tab-actions">
-                            <select id="sort-photos" class="sort-select">
-                                <option value="recent">Plus récentes</option>
-                                <option value="popular">Plus populaires</option>
-                                <option value="oldest">Plus anciennes</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="photos-grid" id="photos-grid">
-                        <!-- Les photos seront chargées dynamiquement -->
-                    </div>
-
-                    <div class="empty-state" id="photos-empty" style="display: none;">
+                    <div class="empty-state">
                         <i class="fas fa-camera fa-3x"></i>
                         <h3>Aucune photo publiée</h3>
                         <p>Commencez par partager votre première photo avec la communauté !</p>
-                        <a href="upload.html" class="btn btn-primary">
-                            <i class="fas fa-plus"></i> Publier une photo
-                        </a>
                     </div>
                 </div>
 
-                <!-- Onglet Photos aimées -->
                 <div class="tab-content" id="liked-tab">
                     <div class="empty-state">
                         <i class="fas fa-heart fa-3x"></i>
@@ -144,74 +116,19 @@
                     </div>
                 </div>
 
-                <!-- Onglet Collections -->
                 <div class="tab-content" id="collections-tab">
                     <div class="empty-state">
                         <i class="fas fa-bookmark fa-3x"></i>
                         <h3>Vos collections</h3>
                         <p>Créez des collections pour organiser vos photos favorites</p>
-                        <button class="btn btn-primary">
-                            <i class="fas fa-plus"></i> Créer une collection
-                        </button>
                     </div>
                 </div>
 
-                <!-- Onglet À propos -->
                 <div class="tab-content" id="about-tab">
-                    <div class="about-section">
+                    <div class="empty-state">
+                        <i class="fas fa-info-circle fa-3x"></i>
                         <h3>Informations personnelles</h3>
-                        <div class="info-grid">
-                            <div class="info-item">
-                                <label>Membre depuis</label>
-                                <span id="info-joined"></span>
-                            </div>
-                            <div class="info-item">
-                                <label>Email</label>
-                                <span id="info-email"></span>
-                            </div>
-                            <div class="info-item">
-                                <label>Localisation</label>
-                                <span id="info-location">Non spécifiée</span>
-                            </div>
-                            <div class="info-item">
-                                <label>Site web</label>
-                                <span id="info-website">Non spécifié</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="about-section">
-                        <h3>Statistiques détaillées</h3>
-                        <div class="stats-grid">
-                            <div class="stat-card">
-                                <i class="fas fa-heart"></i>
-                                <div class="stat-card-content">
-                                    <div class="stat-card-value" id="total-likes">0</div>
-                                    <div class="stat-card-label">Likes reçus</div>
-                                </div>
-                            </div>
-                            <div class="stat-card">
-                                <i class="fas fa-comment"></i>
-                                <div class="stat-card-content">
-                                    <div class="stat-card-value" id="total-comments">0</div>
-                                    <div class="stat-card-label">Commentaires</div>
-                                </div>
-                            </div>
-                            <div class="stat-card">
-                                <i class="fas fa-share"></i>
-                                <div class="stat-card-content">
-                                    <div class="stat-card-value" id="total-shares">0</div>
-                                    <div class="stat-card-label">Partages</div>
-                                </div>
-                            </div>
-                            <div class="stat-card">
-                                <i class="fas fa-trophy"></i>
-                                <div class="stat-card-content">
-                                    <div class="stat-card-value" id="popular-photos">0</div>
-                                    <div class="stat-card-label">Photos populaires</div>
-                                </div>
-                            </div>
-                        </div>
+                        <p>Modifier votre profil pour ajouter plus d'informations</p>
                     </div>
                 </div>
             </div>
@@ -220,35 +137,36 @@
 
     <!-- Modal d'édition de profil -->
     <div class="modal" id="edit-profile-modal">
-        <div class="modal-content profile-modal">
+        <div class="modal-content">
             <div class="modal-header">
                 <h3>Modifier le profil</h3>
-                <button class="close-modal" id="close-edit-modal">
+                <button class="close-modal" id="close-edit-modal" type="button">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            <form id="edit-profile-form" class="modal-body">
+            <form id="edit-profile-form" class="modal-body" method="post" action="/profile/" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <!-- Prévisualisation de l'avatar -->
+                <div class="avatar-preview-container">
+                    <img id="modal-avatar-preview" src="https://via.placeholder.com/120" alt="Aperçu" class="avatar-preview">
+                    <label for="modal-avatar-upload" class="btn btn-outline upload-btn">
+                        <i class="fas fa-camera"></i> Choisir une photo de profil
+                    </label>
+                    <input type="file" id="modal-avatar-upload" name="profile_picture" accept="image/*" style="display: none;">
+                </div>
+
                 <div class="form-group">
-                    <label for="edit-name">Nom complet</label>
-                    <input type="text" id="edit-name" required>
+                    <label for="edit-name">Nom d'utilisateur</label>
+                    <input type="text" id="edit-name" name="username">
                 </div>
                 
                 <div class="form-group">
                     <label for="edit-bio">Bio</label>
-                    <textarea id="edit-bio" rows="3" placeholder="Parlez-nous de vous..."></textarea>
+                    <textarea id="edit-bio" name="bio" rows="3" placeholder="Parlez-nous de vous..." maxlength="150"></textarea>
                     <div class="char-count">
                         <span id="bio-count">0</span>/150
                     </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="edit-location">Localisation</label>
-                    <input type="text" id="edit-location" placeholder="Ville, Pays">
-                </div>
-                
-                <div class="form-group">
-                    <label for="edit-website">Site web</label>
-                    <input type="url" id="edit-website" placeholder="https://example.com">
                 </div>
                 
                 <div class="form-actions">
@@ -259,103 +177,204 @@
         </div>
     </div>
 
-    <!-- Modal -->
-     <div class="modal" id="settings-modal" style="display: none;">
-        <div class="modal-content profile-modal">
-            <div class="modal-header">
-                <h3>Paramètres du compte</h3>
-                <button class="close-modal" onclick="toggleModal('settings-modal')">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="settings-list">
-                    <div class="setting-item">
-                        <span>Compte Public</span>
-                        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
-                    </div>
-                    <hr>
-                    <button class="btn-text" style="color: #ff4757;"><i class="fas fa-trash"></i> Supprimer le compte</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="photo-modal" class="modal">
-        <!-- Le contenu du modal sera chargé dynamiquement -->
-    </div>
-</body> 
+    <script>
+        // Variables globales
+        let selectedAvatarFile = null;
+        let tempAvatarURL = null;
 
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            setupEventListeners();
+        });
 
-/* Corrections structurelles de l'en-tête */
-.profile-header {
-    display: flex; /* Passage en flex pour un meilleur contrôle horizontal */
-    align-items: flex-start;
-    gap: 50px;
-    background: #fff;
-    border-radius: 24px;
-    padding: 50px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    margin-bottom: 40px;
-}
+        // Configuration des événements
+        function setupEventListeners() {
+            // Boutons changement avatar (hors modal)
+            const changeAvatarBtn = document.getElementById('change-avatar-btn');
+            const avatarEditBtn = document.getElementById('avatar-edit-btn');
+            const avatarUpload = document.getElementById('avatar-upload');
 
-/* Section Avatar mieux centrée */
-.profile-avatar-section {
-    flex: 0 0 180px;
-    text-align: center;
-}
+            if (changeAvatarBtn && avatarUpload) {
+                changeAvatarBtn.addEventListener('click', () => avatarUpload.click());
+            }
+            if (avatarEditBtn && avatarUpload) {
+                avatarEditBtn.addEventListener('click', () => avatarUpload.click());
+            }
 
-.avatar-container {
-    width: 180px;
-    height: 180px;
-    margin-bottom: 20px;
-    border: 4px solid #f0f0f0;
-    border-radius: 50%;
-    padding: 5px;
-}
+            // Bouton modifier profil
+            const editProfileBtn = document.getElementById('edit-profile-btn');
+            if (editProfileBtn) {
+                editProfileBtn.addEventListener('click', openEditModal);
+            }
 
-.profile-avatar {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid var(--primary);
-}
+            // Fermeture modal
+            const closeBtn = document.getElementById('close-edit-modal');
+            const cancelBtn = document.getElementById('cancel-edit');
+            if (closeBtn) closeBtn.addEventListener('click', closeEditModal);
+            if (cancelBtn) cancelBtn.addEventListener('click', closeEditModal);
 
-/* Section Infos et Stats */
-.profile-info-section {
-    flex: 1;
-}
+            // Upload avatar dans modal
+            const modalAvatarUpload = document.getElementById('modal-avatar-upload');
+            if (modalAvatarUpload) {
+                modalAvatarUpload.addEventListener('change', handleModalAvatarPreview);
+            }
 
-.profile-stats {
-    display: flex; /* Flex au lieu de grid pour éviter l'étirement forcé */
-    gap: 30px;
-    margin: 25px 0;
-}
+            // Compteur bio
+            const bioTextarea = document.getElementById('edit-bio');
+            if (bioTextarea) {
+                bioTextarea.addEventListener('input', updateBioCount);
+            }
 
-.stat-item {
-    background: #f8f9ff;
-    padding: 15px 25px;
-    border-radius: 16px;
-    min-width: 120px;
-    border: 1px solid rgba(108, 99, 255, 0.1);
-}
+            // Soumission formulaire
+            const editForm = document.getElementById('edit-profile-form');
+            if (editForm) {
+                editForm.addEventListener('submit', handleFormSubmit);
+            }
 
-/* Boutons d'action */
-.profile-actions {
-    display: flex;
-    gap: 12px;
-}
+            // Navigation tabs
+            setupTabNavigation();
 
-.btn {
-    padding: 12px 24px;
-    border-radius: 12px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
+            // Fermeture modal en cliquant dehors
+            const modal = document.getElementById('edit-profile-modal');
+            if (modal) {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeEditModal();
+                });
+            }
+        }
 
-.btn-primary { background: var(--primary); color: white; border: none; }
-.btn-outline { background: white; border: 2px solid var(--primary); color: var(--primary); }
+        // Prévisualisation avatar modal
+        function handleModalAvatarPreview(event) {
+            const file = event.target.files[0];
+            if (!file) return;
 
-.btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3); }
+            if (!file.type.startsWith('image/')) {
+                showNotification('Veuillez sélectionner une image valide', 'error');
+                return;
+            }
+
+            if (file.size > 5 * 1024 * 1024) {
+                showNotification('L\'image ne doit pas dépasser 5 Mo', 'error');
+                return;
+            }
+
+            selectedAvatarFile = file;
+
+            // Prévisualisation
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                tempAvatarURL = e.target.result;
+                const preview = document.getElementById('modal-avatar-preview');
+                if (preview) preview.src = tempAvatarURL;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Ouvrir modal
+        function openEditModal() {
+            const modal = document.getElementById('edit-profile-modal');
+            const profileUsername = document.getElementById('profile-username');
+            const profileBio = document.getElementById('profile-bio');
+            const editName = document.getElementById('edit-name');
+            const editBio = document.getElementById('edit-bio');
+            
+            if (profileUsername && editName) {
+                editName.value = profileUsername.textContent;
+            }
+            
+            if (profileBio && editBio) {
+                const bioText = profileBio.textContent;
+                editBio.value = bioText === 'Aucune bio définie' ? '' : bioText;
+            }
+            
+            updateBioCount();
+            if (modal) modal.classList.add('active');
+        }
+
+        // Fermer modal
+        function closeEditModal() {
+            const modal = document.getElementById('edit-profile-modal');
+            if (modal) modal.classList.remove('active');
+            
+            selectedAvatarFile = null;
+            tempAvatarURL = null;
+            
+            // Réinitialiser prévisualisation
+            const currentAvatar = document.getElementById('profile-avatar');
+            const modalPreview = document.getElementById('modal-avatar-preview');
+            if (currentAvatar && modalPreview) {
+                modalPreview.src = currentAvatar.src;
+            }
+
+            // Réinitialiser input file
+            const fileInput = document.getElementById('modal-avatar-upload');
+            if (fileInput) fileInput.value = '';
+        }
+
+        // Compteur bio
+        function updateBioCount() {
+            const bioTextarea = document.getElementById('edit-bio');
+            const charCount = document.getElementById('bio-count');
+            
+            if (bioTextarea && charCount) {
+                charCount.textContent = bioTextarea.value.length;
+            }
+        }
+
+        // Soumission formulaire - Le formulaire est envoyé normalement à Django
+        function handleFormSubmit(event) {
+            // Le formulaire sera envoyé normalement avec method="post" action="/profile/"
+            // Django gérera la requête POST avec les données et le fichier
+            
+            // Si vous voulez ajouter une validation avant soumission :
+            const username = document.getElementById('edit-name').value.trim();
+            if (!username) {
+                event.preventDefault();
+                showNotification('Le nom d\'utilisateur est requis', 'error');
+                return false;
+            }
+            
+            // Le formulaire se soumettra normalement
+            return true;
+        }
+
+        // Navigation tabs
+        function setupTabNavigation() {
+            const tabButtons = document.querySelectorAll('.profile-nav-btn');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabName = button.getAttribute('data-tab');
+                    
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    
+                    button.classList.add('active');
+                    const targetTab = document.getElementById(tabName + '-tab');
+                    if (targetTab) targetTab.classList.add('active');
+                });
+            });
+        }
+
+        // Notifications
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i> ${message}`;
+            
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease-out';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

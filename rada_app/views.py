@@ -99,8 +99,11 @@ def profile(request):
             }
         )
         return redirect('profile')
+    user= request.user
+    info_user= User.objects.select_related('profile').get(id=user.id)
+    
 
-    return render(request, 'profile.html')
+    return render(request, 'profile.html',{'user': info_user})
 
 def explore(request):
     return render(request, 'explore.html')
