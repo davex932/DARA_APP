@@ -82,7 +82,11 @@
                                         {% csrf_token %}
                                         <input type="hidden" name="is_liked" value="{{ post.id }}">
                                         <button type="submit" class="action-btn like-btn" title="J'aime">
-                                            <i class="far fa-heart"></i>
+                                            {% if post.is_liked %}
+                                                <i class="fas fa-heart"></i>
+                                            {% else %}
+                                                <i class="far fa-heart"></i>
+                                            {% endif %}
                                         </button>
                                     </form>
                                     <button class="action-btn comment-btn" title="Commenter">
@@ -152,49 +156,6 @@
 {% endif %}
             </div>
         </main>
-    <script>
-        document.querySelectorAll('.view-comments-link').forEach(btn => {
-            btn.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                const postId = this.dataset.postId;
-                const modal = document.getElementById(`comments-modal-${postId}`);
-
-                if (modal) {
-                    modal.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                }
-            });
-        });
-
-        function closeModal(postId) {
-            if (postId) {
-                const modal = document.getElementById(`comments-modal-${postId}`);
-                if (modal) modal.classList.remove('active');
-            } else {
-                document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
-            }
-            document.body.style.overflow = 'auto';
-        }
-
-
-        // Fermer au clic sur l'overlay (arrière-plan) pour chaque modal
-        document.querySelectorAll('.modal-overlay').forEach(modal => {
-            modal.addEventListener('click', function(e) {
-                if (e.target === this) {
-                    this.classList.remove('active');
-                    document.body.style.overflow = 'auto';
-                }
-            });
-        });
-
-        // Fermer avec la touche Échap
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeModal();
-            }
-        });
-    </script>
-    <!-- <script src="{% static 'js/home.js' %}"></script> -->
+    <script src="{% static 'js/home.js' %}"></script>
 </body>
 </html>

@@ -34,7 +34,7 @@ class COMMENT(models.Model):
         return timesince(self.comment_at)+' ago'
 
 class LIKE(models.Model):
-    post= models.ForeignKey(POST, on_delete=models.CASCADE)
+    post= models.ForeignKey(POST, on_delete=models.CASCADE, related_name='likes')
     user= models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     class Meta:

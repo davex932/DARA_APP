@@ -60,11 +60,14 @@ def home(request):
             return redirect('home')
     user = request.user
     user_profile= User.objects.select_related('profile').get(id=user.id)
-    post= (
+    posts= (
         POST.objects.select_related('profile__user')
         .prefetch_related('comments__auteur')
+        .prefetch_related('likes')
     )
-    return render(request, 'home.html', {'posts': post, 'user_profile': user_profile})
+    for post in posts:
+        post.is_liked= post.likes.filter(user=user).exists()
+    return render(request, 'home.html', {'posts': posts, 'user_profile': user_profile})
 
 def upload(request):
     if request.method == 'POST':
